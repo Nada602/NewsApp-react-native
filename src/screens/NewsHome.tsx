@@ -26,6 +26,7 @@ export default function NewsHome({ navigation }) {
    isLoadingData,
    setFilterVisible,
    dispatch,
+   setSelectedCategory,
  } = useArticles();
   return (
     <ScrollView>
@@ -35,6 +36,8 @@ export default function NewsHome({ navigation }) {
           onFilterPress={() => setFilterVisible(!filterVisible)}
         />
         <Categories
+          setSelectedCategory={setSelectedCategory}
+          selectedCategory={selectedCategory}
           onCategorySelect={handleCategorySelect}
           onFilterPress={() => setFilterVisible(!filterVisible)}
         />

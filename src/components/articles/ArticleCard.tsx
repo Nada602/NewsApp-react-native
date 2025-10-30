@@ -5,12 +5,7 @@ import Img from "../../../assets/backgroundImage.png";
 export default function ArticleCard({ article,navigation}) {
     const navigateToArticle = (article: Article) => {
   navigation.navigate("ArticleDetails", {
-    id: article.source?.id || "",
-    title: article.title,
-    name: article.source?.name || "",
-    urlToImage: article.urlToImage,
-    description: article.description,
-    content: article.content,
+    article
   });
 };
 
@@ -31,7 +26,8 @@ export default function ArticleCard({ article,navigation}) {
         <Image source={{ uri: article.urlToImage }} style={styles.image} />
       )}
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{article.source.name}</Text>
+        <Text style={styles.labelName}>{article.source.name}</Text>
+        <Text style={styles.title}>{article.title}</Text>
         <TouchableOpacity onPress={openArticleURL}>
           <Text style={styles.link}>see more </Text>
         </TouchableOpacity>
@@ -42,8 +38,8 @@ export default function ArticleCard({ article,navigation}) {
 
 const styles = StyleSheet.create({
   articleCard: {
-    flex:1,
-    flexDirection:"row",
+    flex: 1,
+    flexDirection: "row",
     marginBottom: 15,
     padding: 10,
     backgroundColor: "white",
@@ -54,21 +50,25 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 8,
     marginRight: 15,
-    margin:10
+    margin: 10,
   },
-  titleContainer:{
-    flex:2,
-    flexDirection:"column",
+  titleContainer: {
+    flex: 2,
+    flexDirection: "column",
+    marginTop: 10,
   },
   title: {
     fontSize: 15,
-    fontWeight: 400,
+   
+    },
+  labelName: {
+    fontSize: 12,
+    fontWeight:500,
     marginBottom: 5,
-    color:'gray'
+    color: "gray",
   },
   link: {
     fontSize: 12,
     color: "blue",
-    
   },
 });

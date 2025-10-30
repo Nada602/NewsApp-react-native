@@ -44,7 +44,7 @@ export default function FilterScreen({
   const [selectedSortBy, setSelectedSortBy] = useState<string>("latest");
   const [selectedDateRange, setSelectedDateRange] = useState<string>("all");
 
-  // الفئات المتاحة
+
   const categories = [
     { id: "1", name: "Politics", Icon: Briefcase },
     { id: "2", name: "Technology", Icon: Smartphone },
@@ -56,7 +56,7 @@ export default function FilterScreen({
     { id: "8", name: "World", Icon: Globe },
   ];
 
-  // خيارات الترتيب
+  
   const sortOptions = [
     { id: "latest", label: "Latest First" },
     { id: "oldest", label: "Oldest First" },
@@ -64,7 +64,6 @@ export default function FilterScreen({
     { id: "relevant", label: "Most Relevant" },
   ];
 
-  // خيارات الوقت
   const dateRanges = [
     { id: "all", label: "All Time" },
     { id: "today", label: "Today" },
@@ -83,7 +82,7 @@ export default function FilterScreen({
     }
   };
 
-  // تطبيق الفلاتر
+
   const applyFilters = () => {
     const filters: FilterData = {
       categories: selectedCategories,
@@ -94,7 +93,7 @@ export default function FilterScreen({
     onClose();
   };
 
-  // مسح كل الفلاتر
+  
   const clearAllFilters = () => {
     setSelectedCategories([]);
     setSelectedSortBy("latest");

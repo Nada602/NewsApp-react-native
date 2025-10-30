@@ -14,64 +14,71 @@ interface Category {
 
 interface CategoriesProps {
   onCategorySelect?: (category: string) => void;
-  onFilterPress:any;
+  onFilterPress: any;
+  selectedCategory: string;
+  setSelectedCategory: (categoryName:string) => void;
 }
 
- function Categories({ onCategorySelect,onFilterPress }: CategoriesProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+ function Categories({
+   onCategorySelect,
+   onFilterPress,
+   setSelectedCategory,
+   selectedCategory,
+ }: CategoriesProps) {
+   const categories: Category[] = [
+     { id: "1", name: "All" },
+     { id: "2", name: "Business" },
+     { id: "3", name: "Entertainment" },
+     { id: "4", name: "General" },
+     { id: "5", name: "Health" },
+     { id: "6", name: "Science" },
+     { id: "7", name: "Sports" },
+     { id: "8", name: "Technology" },
+     { id: "9", name: "World" },
+     { id: "10", name: "Politics" },
+   ];
 
-  const categories: Category[] = [
-    { id: "1", name: "All" },
-    { id: "2", name: "Business" },
-    { id: "3", name: "Entertainment" },
-    { id: "4", name: "General" },
-    { id: "5", name: "Health" },
-    { id: "6", name: "Science" },
-    { id: "7", name: "Sports" },
-    { id: "8", name: "Technology" },
-  ];
-
-  const handleCategoryPress = (categoryName: string) => {
-    setSelectedCategory(categoryName);
-    if (onCategorySelect) {
-      onCategorySelect(categoryName);
-    }
-  };
-  console.log("hello im Category");
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      >
-        {categories.map((category) => {
-          const isSelected = selectedCategory === category.name;
-          return (
-            <TouchableOpacity
-              key={category.id}
-              style={[
-                styles.categoryChip,
-                isSelected && styles.categoryIsSelected,
-              ]}
-              onPress={() => handleCategoryPress(category.name)}
-              activeOpacity={0.7}
-            >
-              <Text
-                style={[
-                  styles.categoryText,
-                  isSelected && styles.categoryTextSelected,
-                ]}
-              >
-                {category.name}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
-    </View>
-  );
-}
+   const handleCategoryPress = (categoryName: string) => {
+     setSelectedCategory(categoryName);
+     if (onCategorySelect) {
+       onCategorySelect(categoryName);
+     }
+   };
+   console.log("hello im Category");
+   return (
+     <View style={styles.container}>
+       <ScrollView
+         horizontal
+         showsHorizontalScrollIndicator={false}
+         contentContainerStyle={styles.scrollContent}
+       >
+         {categories.map((category) => {
+           const isSelected = selectedCategory === category.name;
+           return (
+             <TouchableOpacity
+               key={category.id}
+               style={[
+                 styles.categoryChip,
+                 isSelected && styles.categoryIsSelected,
+               ]}
+               onPress={() => handleCategoryPress(category.name)}
+               activeOpacity={0.7}
+             >
+               <Text
+                 style={[
+                   styles.categoryText,
+                   isSelected && styles.categoryTextSelected,
+                 ]}
+               >
+                 {category.name}
+               </Text>
+             </TouchableOpacity>
+           );
+         })}
+       </ScrollView>
+     </View>
+   );
+ }
 
 export default React.memo(Categories);
 

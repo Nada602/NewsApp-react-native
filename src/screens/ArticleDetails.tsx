@@ -3,32 +3,44 @@ import {
   View,
   Text,
   Image,
-  ScrollView,
   StyleSheet,
   Dimensions,
 } from "react-native";
 
 export default function ArticleDetails({ route }) {
-  const {title, name, urlToImage, description, content } = route.params || {};
+  const {article } = route.params || [];
   const screenWidth = Dimensions.get("window").width;
 
   return (
-    <ScrollView style={styles.container}>
-      {urlToImage && ( 
+    <View style={styles.container}>
+      <Text style={styles.title}>{article.title}</Text>
+      {article.urlToImage && (
         <Image
-          source={{ uri: urlToImage }}
+          source={{ uri: article.urlToImage }}
           style={[styles.image, { width: screenWidth - 20 }]}
           resizeMode="cover"
         />
       )}
-      <Text style={styles.title}>{title}</Text>
-      {name ? <Text style={styles.source}>Source: {name}</Text> : null}      
+      {article.name ? (
+        <Text style={styles.source}>Source: {article.name}</Text>
+      ) : null}
       <Text style={styles.description}>
-        { description || "No description available." }
+        {article.description || "No description available."}
       </Text>
 
-      {content ? <Text style={styles.content}>{content}</Text> : null}
-    </ScrollView>
+      {article.content ? (
+        <Text style={styles.content}>{article.content}</Text>
+      ) : null}
+      <Text style={styles.date}>
+        {" "}
+        Date:{" "}
+        {new Date(article.publishedAt).toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })}
+      </Text>
+    </View>
   );
 }
 
@@ -47,8 +59,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#333",
-    marginBottom: 10,
+    color: "#1E293B",
+    marginVertical: 15,
   },
   source: {
     fontSize: 14,
@@ -57,14 +69,18 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    color: "#555",
+    color: "#475569",
     lineHeight: 22,
     marginBottom: 10,
   },
   content: {
     fontSize: 15,
-    color: "#444",
+    color: "gray",
     lineHeight: 22,
     marginBottom: 30,
+  },
+  date: {
+    color: "#94A3B8",
+    marginVertical: 10,
   },
 });

@@ -8,21 +8,15 @@ import { View, Text, StyleSheet } from 'react-native';
  import { MaterialIcons } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
  const Stack = createNativeStackNavigator();
-const MyCustomHeader = () => (
-  <View
-    style={styles.customHeader}
-  >
-    <FontAwesome name="newspaper-o" size={24} color="black" />
-    <Text>News Explorer</Text>
-  </View>
-);
+
+
 export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerTitleAlign: "start",
-          headerTintColor: "black",
+          headerTintColor: "blue",
           headerStyle: { backgroundColor: "white" },
         }}
       >
@@ -32,12 +26,18 @@ export default function AppNavigator() {
           component={FirstHome}
         />
         <Stack.Screen
-          options={{  header: () => <MyCustomHeader />,title: "News Explorer"}}
+          options={{
+            title: "News Explorer",
+            headerStyle: { backgroundColor: "white", fontColor: "blue" },
+          }}
           name="NewsHome"
           component={NewsHome}
-
         />
-        <Stack.Screen name="ArticleDetails" component={ArticleDetails} />
+        <Stack.Screen
+          name="ArticleDetails"
+          component={ArticleDetails}
+          options={{ headerShown: true, title:"" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -48,10 +48,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     height: 50,
-
-    backgroundColor: "#0b72ff",
     justifyContent: "flex-start",
     paddingHorizontal: 10,
+    marginTop:10,
     
 
   },
