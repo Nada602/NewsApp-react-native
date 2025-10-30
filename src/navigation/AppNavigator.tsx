@@ -4,9 +4,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import NewsHome from "../screens/NewsHome"
 import FirstHome from "../screens/FirstHome";
 import ArticleDetails from "../screens/ArticleDetails";
-import { View, Text, StyleSheet } from 'react-native';
- import { MaterialIcons } from "@expo/vector-icons";
+import { View, StyleSheet } from 'react-native';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+
  const Stack = createNativeStackNavigator();
 
 
@@ -16,8 +16,13 @@ export default function AppNavigator() {
       <Stack.Navigator
         screenOptions={{
           headerTitleAlign: "start",
-          headerTintColor: "blue",
+          headerTintColor: "black",
           headerStyle: { backgroundColor: "white" },
+          headerLeft: () => (
+            <View style={{ marginRight: 10 }}>
+              <FontAwesome name="newspaper-o" size={22} color="#1E293B" />
+            </View>
+          ),
         }}
       >
         <Stack.Screen
@@ -28,7 +33,7 @@ export default function AppNavigator() {
         <Stack.Screen
           options={{
             title: "News Explorer",
-            headerStyle: { backgroundColor: "white", fontColor: "blue" },
+            headerStyle: { backgroundColor: "white" },
           }}
           name="NewsHome"
           component={NewsHome}
@@ -36,22 +41,10 @@ export default function AppNavigator() {
         <Stack.Screen
           name="ArticleDetails"
           component={ArticleDetails}
-          options={{ headerShown: true, title:"" }}
+          options={{ headerShown: true, title: "" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  customHeader: {
-    flex: 1,
-    flexDirection: "row",
-    height: 50,
-    justifyContent: "flex-start",
-    paddingHorizontal: 10,
-    marginTop:10,
-    
-
-  },
-});
