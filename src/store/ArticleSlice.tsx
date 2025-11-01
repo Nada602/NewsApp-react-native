@@ -19,7 +19,7 @@ export interface Article {
 
 interface ArticleState {
   articles: Article[];
-  isLoading: boolean; // Changed from Loading to loading (consistency)
+  isLoading: boolean; 
   error: string | null;
   searchResults: Article[];
   isSearching: boolean;
