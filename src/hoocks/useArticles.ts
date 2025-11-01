@@ -45,7 +45,7 @@ const categoryMap: any = {
    (searchText: string) => {
      console.log("im handel search");
      setSearchQuery(searchText);
-     setSelectedCategory("All"); // امسح الفئة المختارة
+     setSelectedCategory("All"); 
 
      if (searchText.trim()) {
        dispatch(searchArticle(searchText.trim().toLowerCase()));
