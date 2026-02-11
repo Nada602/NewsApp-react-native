@@ -1,35 +1,39 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { StyleSheet, Dimensions } from "react-native";
 import LoadingSpinner from "@components/common/LoadingSpinner";
 import ArticleCard from "@components/articles/ArticleCard";
 import SearchBar from "@components/articles/SearchBar";
 import Categories from "@components/articles/Categories";
 import Feather from "@expo/vector-icons/Feather";
-import { Article,getarticles,searchArticle } from "../store/ArticleSlice";
+import {
+  Article,
+  getarticles,
+  searchArticle,
+} from "../store/slices/ArticleSlice";
 import FilterScreen from "./FilterScreen";
-import { useArticles } from '../hoocks/useArticles';
+import { useArticles } from "../hoocks/useArticles";
+import Header from "@components/common/Header";
+import { BG } from "src/constants";
+
 export default function NewsHome({ navigation }) {
- const {
-   displayArticles,
-   handleCategorySelect,
-   handleApplyFilters,
-   handleSearch,
-   filterVisible,
-   selectedCategory,
-   searchQuery,
-   error,
-   isLoadingData,
-   setFilterVisible,
-   dispatch,
-   setSelectedCategory,
- } = useArticles();
+  const {
+    displayArticles,
+    handleCategorySelect,
+    handleApplyFilters,
+    handleSearch,
+    filterVisible,
+    selectedCategory,
+    searchQuery,
+    error,
+    isLoadingData,
+    setFilterVisible,
+    dispatch,
+    setSelectedCategory,
+  } = useArticles();
   return (
     <ScrollView>
+      <Header title=" Briefly" navigation={navigation} />
+
       <View style={styles.container}>
         <SearchBar
           onSearch={handleSearch}
@@ -48,10 +52,8 @@ export default function NewsHome({ navigation }) {
           onApplyFilters={handleApplyFilters}
         />
 
-        {/* Loading State */}
         {isLoadingData && <LoadingSpinner />}
 
-        {/* Error State */}
         {error && !isLoadingData && (
           <View style={styles.errorContainer}>
             <View style={styles.errorIcon}>
@@ -73,7 +75,6 @@ export default function NewsHome({ navigation }) {
           </View>
         )}
 
-        {/* Success State */}
         {!error && !isLoadingData && (
           <>
             <View style={styles.headerContainer}>
@@ -89,8 +90,6 @@ export default function NewsHome({ navigation }) {
                 </Text>
               )}
             </View>
-
-            {/* Articles List */}
 
             {displayArticles && displayArticles.length > 0 ? (
               displayArticles.map((article: Article) => (
@@ -121,8 +120,9 @@ const { height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    minHeight: height - 100,
+    paddingHorizontal:10,
+    paddingVertical:5,
+    backgroundColor:BG
   },
   headerContainer: {
     marginVertical: 15,

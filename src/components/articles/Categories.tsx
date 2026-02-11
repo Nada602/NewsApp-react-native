@@ -44,7 +44,7 @@ interface CategoriesProps {
        onCategorySelect(categoryName);
      }
    };
-   console.log("hello im Category");
+  
    return (
      <View style={styles.container}>
        <ScrollView

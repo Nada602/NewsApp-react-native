@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Modal,
   ScrollView,
-  SafeAreaView,
 } from "react-native";
 import {
   Briefcase,
@@ -21,6 +20,7 @@ import {
   X,
   Check,
 } from "lucide-react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface FilterScreenProps {
   visible: boolean;

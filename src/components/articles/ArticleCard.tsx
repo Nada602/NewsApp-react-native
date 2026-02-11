@@ -1,18 +1,23 @@
-import { View, Text, TouchableOpacity, StyleSheet,Image,Linking } from 'react-native';
-import React from 'react'
-import { Article } from '@store/ArticleSlice';
-import Img from "../../../assets/backgroundImage.png";
-export default function ArticleCard({ article,navigation}) {
-    const navigateToArticle = (article: Article) => {
-  navigation.navigate("ArticleDetails", {
-    article
-  });
-};
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Linking,
+} from "react-native";
+import React from "react";
+import { Article } from "@store/slices/ArticleSlice";
+export default function ArticleCard({ article, navigation }) {
+  const navigateToArticle = (article: Article) => {
+    navigation.navigate("ArticleDetails", {
+      article,
+    });
+  };
 
- const openArticleURL = () => {
-   Linking.openURL(article.url);
- };
-
+  const openArticleURL = () => {
+    Linking.openURL(article.url);
+  };
 
   return (
     <TouchableOpacity
@@ -59,11 +64,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 15,
-   
-    },
+  },
   labelName: {
     fontSize: 12,
-    fontWeight:500,
+    fontWeight: 500,
     marginBottom: 5,
     color: "gray",
   },

@@ -15,7 +15,6 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
     }
   };
 
-  console.log("hello im sarch")
 
   return (
     <View style={styles.searchBarContainer}>

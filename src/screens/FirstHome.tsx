@@ -6,9 +6,38 @@ import {
   ImageBackground,
   Dimensions,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
+import { NavigationContainerProps } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "src/types";
+import { useAppDispatch } from "@store/index";
+import { checkUserSession } from "@store/slices/AuthSlices";
+import { BG } from "src/constants";
 const { width, height } = Dimensions.get("window");
-export default function FirstHome({ navigation }) {
+
+type FirstHomeNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "FirstHome"
+>;
+
+type FirstHomeProps = {
+  navigation: FirstHomeNavigationProp;
+};
+
+export default function FirstHome({ navigation }: FirstHomeProps) {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const check = async () => {
+      const session = await dispatch(checkUserSession());
+      if (session.payload) {
+        navigation.replace("NewsHome");
+      } else {
+        navigation.replace("LoginScreen");
+      }
+    };
+    check();
+  }, []);
   return (
     <ImageBackground
       source={require("../../assets/backgroundImage.png")}
@@ -27,9 +56,9 @@ export default function FirstHome({ navigation }) {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.replace("NewsHome")}
+          onPress={() => navigation.navigate("LoginScreen")}
         >
-          <Text style={styles.buttonText}>Getting Started</Text>
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -69,8 +98,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   button: {
-    backgroundColor: "#2563EB", // أزرق قريب من اللي بالصورة
-    paddingVertical: 14,
+    backgroundColor: BG, 
+     paddingVertical: 14,
     paddingHorizontal: 70,
     borderRadius: 30,
   },

@@ -1,21 +1,23 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import NewsHome from "../screens/NewsHome"
+import NewsHome from "../screens/NewsHome";
 import FirstHome from "../screens/FirstHome";
 import ArticleDetails from "../screens/ArticleDetails";
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import RegisterScreen from "@screens/RegisterScreen/screens/RegisterScreen";
+import LoginScreen from "@screens/LoginScreen/screens/LoginScreen";
 
- const Stack = createNativeStackNavigator();
-
+const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
+        initialRouteName="FirstHome"
         screenOptions={{
-          headerTitleAlign: "start",
+          headerTitleAlign: "left",
           headerTintColor: "black",
           headerStyle: { backgroundColor: "white" },
           headerLeft: () => (
@@ -31,8 +33,19 @@ export default function AppNavigator() {
           component={FirstHome}
         />
         <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{ headerShown: false, title: "" }}
+        />
+        <Stack.Screen
+          name="RegisterScreen"
+          component={RegisterScreen}
+          options={{ headerShown: false, title: "" }}
+        />
+        <Stack.Screen
           options={{
-            title: "News Explorer",
+            headerShown: false,
+
             headerStyle: { backgroundColor: "white" },
           }}
           name="NewsHome"
@@ -41,10 +54,18 @@ export default function AppNavigator() {
         <Stack.Screen
           name="ArticleDetails"
           component={ArticleDetails}
-          options={{ headerShown: true, title: "" }}
+          options={{ headerShown: false, title: "" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
+// export  function Layout(){
+
+//   <NavigationContainer>
+//     <Stack.Navigator>
+
+//     </Stack.Navigator>
+//   </NavigationContainer>
+// }
