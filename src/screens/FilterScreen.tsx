@@ -101,133 +101,135 @@ export default function FilterScreen({
   };
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={false}
-      visible={visible}
-      onRequestClose={onClose}
-    >
-      <SafeAreaView style={styles.container}>
-        {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <X size={28} color="#333" />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Filters</Text>
-          <TouchableOpacity onPress={clearAllFilters}>
-            <Text style={styles.clearText}>Clear All</Text>
-          </TouchableOpacity>
-        </View>
+    <>
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={visible}
+        onRequestClose={onClose}
+      >
+        <SafeAreaView style={styles.container}>
+          {/* Header */}
+          <View style={styles.header}>
+            <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+              <X size={28} color="#333" />
+            </TouchableOpacity>
+            <Text style={styles.headerTitle}>Filters</Text>
+            <TouchableOpacity onPress={clearAllFilters}>
+              <Text style={styles.clearText}>Clear All</Text>
+            </TouchableOpacity>
+          </View>
 
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {/* Categories Section */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Categories</Text>
-            <View style={styles.categoriesGrid}>
-              {categories.map((category) => {
-                const isSelected = selectedCategories.includes(category.id);
-                const IconComponent = category.Icon;
-                return (
-                  <TouchableOpacity
-                    key={category.id}
-                    style={[
-                      styles.categoryCard,
-                      isSelected && styles.categoryCardSelected,
-                    ]}
-                    onPress={() => toggleCategory(category.id)}
-                    activeOpacity={0.7}
-                  >
-                    <IconComponent
-                      size={32}
-                      color={isSelected ? "#fff" : "#666"}
-                    />
-                    <Text
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {/* Categories Section */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Categories</Text>
+              <View style={styles.categoriesGrid}>
+                {categories.map((category) => {
+                  const isSelected = selectedCategories.includes(category.id);
+                  const IconComponent = category.Icon;
+                  return (
+                    <TouchableOpacity
+                      key={category.id}
                       style={[
-                        styles.categoryText,
-                        isSelected && styles.categoryTextSelected,
+                        styles.categoryCard,
+                        isSelected && styles.categoryCardSelected,
                       ]}
+                      onPress={() => toggleCategory(category.id)}
+                      activeOpacity={0.7}
                     >
-                      {category.name}
-                    </Text>
-                    {isSelected && (
-                      <View style={styles.checkmark}>
-                        <Check size={16} color="#fff" />
+                      <IconComponent
+                        size={32}
+                        color={isSelected ? "#fff" : "#666"}
+                      />
+                      <Text
+                        style={[
+                          styles.categoryText,
+                          isSelected && styles.categoryTextSelected,
+                        ]}
+                      >
+                        {category.name}
+                      </Text>
+                      {isSelected && (
+                        <View style={styles.checkmark}>
+                          <Check size={16} color="#fff" />
+                        </View>
+                      )}
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </View>
+
+            {/* Sort By Section */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Sort By</Text>
+              <View style={styles.radioGroup}>
+                {sortOptions.map((option) => {
+                  const isSelected = selectedSortBy === option.id;
+                  return (
+                    <TouchableOpacity
+                      key={option.id}
+                      style={styles.radioOption}
+                      onPress={() => setSelectedSortBy(option.id)}
+                      activeOpacity={0.7}
+                    >
+                      <View
+                        style={[
+                          styles.radioCircle,
+                          isSelected && styles.radioCircleSelected,
+                        ]}
+                      >
+                        {isSelected && <View style={styles.radioDot} />}
                       </View>
-                    )}
-                  </TouchableOpacity>
-                );
-              })}
+                      <Text style={styles.radioLabel}>{option.label}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
             </View>
-          </View>
 
-          {/* Sort By Section */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Sort By</Text>
-            <View style={styles.radioGroup}>
-              {sortOptions.map((option) => {
-                const isSelected = selectedSortBy === option.id;
-                return (
-                  <TouchableOpacity
-                    key={option.id}
-                    style={styles.radioOption}
-                    onPress={() => setSelectedSortBy(option.id)}
-                    activeOpacity={0.7}
-                  >
-                    <View
-                      style={[
-                        styles.radioCircle,
-                        isSelected && styles.radioCircleSelected,
-                      ]}
+            {/* Date Range Section */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Date Range</Text>
+              <View style={styles.chipsContainer}>
+                {dateRanges.map((range) => {
+                  const isSelected = selectedDateRange === range.id;
+                  return (
+                    <TouchableOpacity
+                      key={range.id}
+                      style={[styles.chip, isSelected && styles.chipSelected]}
+                      onPress={() => setSelectedDateRange(range.id)}
+                      activeOpacity={0.7}
                     >
-                      {isSelected && <View style={styles.radioDot} />}
-                    </View>
-                    <Text style={styles.radioLabel}>{option.label}</Text>
-                  </TouchableOpacity>
-                );
-              })}
+                      <Text
+                        style={[
+                          styles.chipText,
+                          isSelected && styles.chipTextSelected,
+                        ]}
+                      >
+                        {range.label}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
             </View>
-          </View>
+          </ScrollView>
 
-          {/* Date Range Section */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Date Range</Text>
-            <View style={styles.chipsContainer}>
-              {dateRanges.map((range) => {
-                const isSelected = selectedDateRange === range.id;
-                return (
-                  <TouchableOpacity
-                    key={range.id}
-                    style={[styles.chip, isSelected && styles.chipSelected]}
-                    onPress={() => setSelectedDateRange(range.id)}
-                    activeOpacity={0.7}
-                  >
-                    <Text
-                      style={[
-                        styles.chipText,
-                        isSelected && styles.chipTextSelected,
-                      ]}
-                    >
-                      {range.label}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
+          {/* Apply Button */}
+          <View style={styles.footer}>
+            <TouchableOpacity
+              style={styles.applyButton}
+              onPress={applyFilters}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.applyButtonText}>Apply Filters</Text>
+            </TouchableOpacity>
           </View>
-        </ScrollView>
-
-        {/* Apply Button */}
-        <View style={styles.footer}>
-          <TouchableOpacity
-            style={styles.applyButton}
-            onPress={applyFilters}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.applyButtonText}>Apply Filters</Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    </Modal>
+        </SafeAreaView>
+      </Modal>
+    </>
   );
 }
 

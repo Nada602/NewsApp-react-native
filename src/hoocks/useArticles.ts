@@ -4,7 +4,6 @@ import {
   searchArticle,
   clearSearch,
   filterArticle,
-
 } from "@store/slices/ArticleSlice";
 import { useEffect, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +14,7 @@ export const useArticles = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const dispatch =useAppDispatch();
+  const dispatch = useAppDispatch();
   const [filterVisible, setFilterVisible] = useState(false);
   const categoryMap: any = {
     "1": "politics",
@@ -73,7 +72,7 @@ export const useArticles = () => {
   );
 
   const handleApplyFilters = useCallback(
-    (filters: { categories: string[]; sortBy: string; dateRange:string }) => {
+    (filters: { categories: string[]; sortBy: string; dateRange: string }) => {
       console.log("Applied Filters:", filters);
 
       const categoryNames = filters.categories.map(
@@ -100,15 +99,11 @@ export const useArticles = () => {
   let displayArticles;
 
   if (searchQuery.trim()) {
-    console.log("im condetion 1");
-    displayArticles = searchResults?.articles;
+    displayArticles = searchResults;
   } else if (selectedCategory === "All") {
-    console.log("im condetion 2");
-
-    displayArticles = articles?.articles;
+    displayArticles = articles;
   } else {
-    console.log("im condetion 3");
-    displayArticles = searchResults?.articles;
+    displayArticles = searchResults;
   }
 
   const isLoadingData =

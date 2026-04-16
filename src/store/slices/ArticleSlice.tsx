@@ -68,7 +68,7 @@ export const searchArticle = createAsyncThunk<
   NewsApiResponse,
   String,
   { rejectValue: string }
->("articles/searcharticles", async (searchQuery: string, thunkAPI) => {
+>("articles/searcharticles", async (searchQuery: String, thunkAPI) => {
   const { rejectWithValue } = thunkAPI;
   try {
     const response = await api.get<NewsApiResponse>("/everything", {

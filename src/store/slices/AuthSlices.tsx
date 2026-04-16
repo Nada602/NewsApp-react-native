@@ -25,13 +25,23 @@ export const loginUser = createAsyncThunk(
     { email, password }: { email: string; password: string },
     thunkAPI,
   ) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) return thunkAPI.rejectWithValue(error.message);
-    await saveSession(data.session);
-    return data.session;
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      console.log("Supabase login result", { data, error });
+      if (error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+      await saveSession(data.session);
+      return data.session;
+    } catch (error) {
+      console.log("Supabase login exception", error);
+      return thunkAPI.rejectWithValue(
+        (error as Error).message || "Network request failed",
+      );
+    }
   },
 );
 
@@ -41,10 +51,20 @@ export const signupUser = createAsyncThunk(
     { email, password }: { email: string; password: string },
     thunkAPI,
   ) => {
-    const { data, error } = await supabase.auth.signUp({ email, password });
-    if (error) return thunkAPI.rejectWithValue(error.message);
-    await saveSession(data.session);
-    return data.session;
+    try {
+      const { data, error } = await supabase.auth.signUp({ email, password });
+      console.log("Supabase signup result", { data, error });
+      if (error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+      await saveSession(data.session);
+      return data.session;
+    } catch (error) {
+      console.log("Supabase signup exception", error);
+      return thunkAPI.rejectWithValue(
+        (error as Error).message || "Network request failed",
+      );
+    }
   },
 );
 
